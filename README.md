@@ -1,0 +1,7 @@
+# AgapeApp
+
+En el ámbito del desarrollo de software moderno, la integración continua es una práctica esencial que asegura la eficiencia y calidad del proceso de desarrollo. Una pieza clave en este enfoque es el uso de herramientas de control de versiones como Git para el entorno local y GitHub para el entorno remoto. Estas herramientas no solo facilitan la gestión de cambios en el código fuente, sino que también promueven la colaboración efectiva entre los miembros del equipo.
+
+Este documento tiene como objetivo guiar paso a paso la instalación y configuración de Git y GitHub. Git, utilizado localmente, permite a los desarrolladores trabajar en sus propios entornos y administrar cambios en el código de manera independiente, mientras que GitHub ofrece una plataforma basada en la web para almacenar, compartir y colaborar en el código de manera remota.
+
+Este proceso de instalación y configuración es fundamental para establecer un flujo de trabajo sólido y eficiente en el desarrollo de software, particularmente para proyectos colaborativos y escalables como AgapeApp. Proporcionaremos instrucciones detalladas, acompañadas de capturas de pantalla, para garantizar una comprensión clara y una implementación exitosa de estas herramientas esenciales en el entorno de desarrollo.
