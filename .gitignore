@@ -41,3 +41,5 @@ nbdist/
 
 !mysql-connector-j-8.2.0.zip
 mysql-connector-j-8.2.0/
+
+!web/WEB-INF/lib/jstl-1.2.jar
