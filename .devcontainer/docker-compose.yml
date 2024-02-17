@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  app:
+    image: openjdk:21-jdk-slim-bullseye
+    tty: true
+    environment:
+      # Developer
+      ConnectionStrings__Database: "Server=db;Database=Agape;User Id=postgres;Password=mypassword;"
+      ConnectionStrings__Storage: "http://minio:minio123@minio:9000"
+      ConnectionStrings__Cache: "redis"
+    volumes:
+      - "..:/home/AgapeApp" # Asegúrate de que el directorio montado corresponda a la estructura de tu proyecto Java
+    ports:
+      - "8080:8080" # Asegúrate de que el puerto concuerde con el configurado en tu aplicación Spring Boot
+    depends_on:
+      - db
+  minio:
+    image: minio/minio:RELEASE.2023-07-07T07-13-57Z
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server --console-address ":9090" /data
+    ports:
+      - 9000:9000
+      - 9090:9090
+  redis:
+    image: redis
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "mypassword"
+      POSTGRES_DB: "agapeapp"
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - 5050:5050
+    depends_on:
+      - db
