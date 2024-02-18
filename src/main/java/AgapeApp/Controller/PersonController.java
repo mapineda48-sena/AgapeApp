@@ -2,6 +2,7 @@ package AgapeApp.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,5 +40,12 @@ public class PersonController {
         });
 
         return "redirect:/success.html"; // Redirige directamente al archivo estático
+    }
+
+    @GetMapping("/persons")
+    public String listPersonGet(Model model) {
+        var records = personaRepository.findAll();
+        model.addAttribute("listaDePersonas", records); // Agrega la lista de personas al modelo
+        return "listPersons"; // Nombre de la plantilla Thymeleaf
     }
 }
