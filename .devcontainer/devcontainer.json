@@ -10,7 +10,8 @@
       "extensions": [
 		"vscjava.vscode-java-pack",
 		"esbenp.prettier-vscode",
-		"vscjava.vscode-gradle"
+		"vscjava.vscode-gradle",
+		"vmware.vscode-boot-dev-pack"
 	]
     }
   }

@@ -14,7 +14,7 @@ public class HelloWorldController {
         this.personaRepository = personaRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping("/helloWorld")
     public String listarPersonas() {
         var record = new Person();
 

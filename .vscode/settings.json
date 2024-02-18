@@ -1,0 +1,9 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.debug.settings.hotCodeReplace": "auto",
+    "boot-java.live-information.fetch-data.retry-delay-in-seconds": 15, 
+    "boot-java.change-detection.on": true, 
+    "boot-java.support-spring-xml-config.content-assist": true,
+    "boot-java.support-spring-xml-config.on": true
+}

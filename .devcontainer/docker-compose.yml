@@ -2,11 +2,10 @@ version: "3"
 
 services:
   app:
-    image: openjdk:21-jdk-slim-bullseye
+    image: openjdk:17-jdk-slim-bullseye
     tty: true
     environment:
-      # Developer
-      ConnectionStrings__Database: "Server=db;Database=Agape;User Id=postgres;Password=mypassword;"
+      DatabaseJDBC: "jdbc:mysql://db:3306/agapeapp?user=admin&password=mypassword&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true"
       ConnectionStrings__Storage: "http://minio:minio123@minio:9000"
       ConnectionStrings__Cache: "redis"
     volumes:
@@ -26,18 +25,12 @@ services:
       - 9090:9090
   redis:
     image: redis
-  db:
-    image: postgres:14
+  db: 
+    image: mysql:8.0
     environment:
-      POSTGRES_USER: "admin"
-      POSTGRES_PASSWORD: "mypassword"
-      POSTGRES_DB: "agapeapp"
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
-      PGADMIN_DEFAULT_PASSWORD: "admin"
+      MYSQL_DATABASE: "agapeapp"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "mypassword"
+      MYSQL_ROOT_PASSWORD: "mypassword"
     ports:
-      - 5050:80
-    depends_on:
-      - db
+      - 3306:3306

@@ -2,6 +2,9 @@ package AgapeApp.Models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,4 +28,12 @@ public class Person {
     @Column
     private String apellido;
     
+    @Column
+    private String documento;
+
+    @Column
+    private LocalDate fechaNacimiento;
+
+    @Column
+    private String correoElectronico;
 }
