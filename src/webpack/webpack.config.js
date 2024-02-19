@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const outDir = path.resolve("../main/resources/static");
+const templateDir = path.resolve("../main/resources/template");
 
 const pages = glob
   .sync("**/*.html", { cwd: path.resolve("pages") })
