@@ -4,13 +4,14 @@ const fs = require("fs-extra");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+const moduleTs = path.resolve("pages/cms/_/module/module.ts");
 const outDir = path.resolve("../main/resources/static");
 
 const pages = glob
   .sync("**/*.html", { cwd: path.resolve("pages") })
   .map((html) => ({
     html,
-    chunk: html.replace(".html", "").replace("\\", "/"),
+    chunk: html.replace(".html", "").replace(/\\/g, "/"),
     files: getPageChunks(html),
   }));
 
@@ -36,6 +37,7 @@ const htmls = pages.map(
 );
 
 module.exports = {
+  mode: "development",
   entry,
   output: {
     filename: "[name].js",
@@ -94,11 +96,16 @@ module.exports = {
   // Configuraciones adicionales...
 };
 
+
 function getPageChunks(html) {
   const chunks = [];
 
   const ts = path.resolve("pages", html.replace(".html", ".ts"));
   const scss = path.resolve("pages", html.replace(".html", ".scss"));
+
+  if (html.includes("_")) {
+    chunks.push(moduleTs);
+  }
 
   if (fs.existsSync(ts)) {
     chunks.push(ts);

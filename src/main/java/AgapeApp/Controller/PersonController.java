@@ -20,14 +20,14 @@ public class PersonController {
     public String CreatePersonPost(Person record) {
         personaRepository.save(record);
 
-        return "redirect:/success.html"; // Redirige directamente al archivo estático
+        return "redirect:/cms/_/module/success.html"; // Redirige directamente al archivo estático
     }
 
     @PostMapping("/deletePersons")
     public String DeletePersonPost() {
         personaRepository.deleteAll();
 
-        return "redirect:/success.html"; // Redirige directamente al archivo estático
+        return "redirect:/cms/_/module/success.html"; // Redirige directamente al archivo estático
     }
 
     @PostMapping("/updatePerson")
@@ -39,7 +39,7 @@ public class PersonController {
             personaRepository.save(person);
         });
 
-        return "redirect:/success.html"; // Redirige directamente al archivo estático
+        return "redirect:/cms/_/module/success.html"; // Redirige directamente al archivo estático
     }
 
     @GetMapping("/persons")
