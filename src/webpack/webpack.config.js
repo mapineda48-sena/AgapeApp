@@ -4,6 +4,8 @@ const fs = require("fs-extra");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+const isDevelopment = true;
+
 const moduleTs = path.resolve("pages/cms/_/module/module.ts");
 const outDir = path.resolve("../main/resources/static");
 
@@ -37,7 +39,7 @@ const htmls = pages.map(
 );
 
 module.exports = {
-  mode: "development",
+  mode: isDevelopment ? 'development' : 'production',
   entry,
   output: {
     filename: "[name].js",

@@ -42,10 +42,10 @@ public class PersonController {
         return "redirect:/cms/_/module/success.html"; // Redirige directamente al archivo estático
     }
 
-    @GetMapping("/persons")
+    @GetMapping("/cms/_/module/person/search.html")
     public String listPersonGet(Model model) {
         var records = personaRepository.findAll();
         model.addAttribute("listaDePersonas", records); // Agrega la lista de personas al modelo
-        return "listPersons"; // Nombre de la plantilla Thymeleaf
+        return "cms/_/module/person/search"; // Nombre de la plantilla Thymeleaf
     }
 }

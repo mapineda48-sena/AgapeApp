@@ -1,22 +1,52 @@
 const path = require("path");
 const glob = require("glob");
 const fs = require("fs-extra");
+const chokidar = require("chokidar");
+
+const isDevelopment = true;
 
 const outDir = path.resolve("../main/resources/static");
-const templateDir = path.resolve("../main/resources/template");
+const templateDir = path.resolve("../main/resources/templates");
 
-const pages = glob.sync("**/*.html", { cwd: outDir });
+if (isDevelopment) {
+  // Inicializa un observador sobre un directorio y filtra por archivos HTML
+  const watcher = chokidar.watch(outDir, {
+    ignored: /(^|[\/\\])\../, // ignora archivos punto
+    persistent: true,
+  });
 
-const prom = pages.map((page) => moveIfTemplate(page));
+  // Evento para agregar archivos
+  watcher.on("add", moveIfTemplate);
 
-async function moveIfTemplate(html) {
-  const filename = path.join(outDir, html);
+  // Evento para cambios en los archivos
+  watcher.on("change", moveIfTemplate);
 
-  const data = await fs.readFile(filename, "utf8");
+  // Eventos para estar listo
+  watcher.on("ready", () =>
+    console.log("Iniciando el monitoreo de archivos...")
+  );
+} else {
+  const pages = glob
+    .sync("**/*.html", { cwd: outDir })
+    .map((html) => path.join(outDir, html));
 
-  if (!data.includes('xmlns:th="http://www.thymeleaf.org"')) {
+  const prom = pages.map((page) => moveIfTemplate(page));
+}
+
+async function moveIfTemplate(filename) {
+  if (!filename.endsWith(".html")) {
     return;
   }
 
-  await fs.move(filename, filename.replace(outDir, templateDir));
+  try {
+    const data = await fs.readFile(filename, "utf8");
+
+    if (!data.includes('xmlns:th="http://www.thymeleaf.org"')) {
+      return;
+    }
+
+    await fs.move(filename, filename.replace(outDir, templateDir));
+  } catch (error) {
+    console.error(error);
+  }
 }
