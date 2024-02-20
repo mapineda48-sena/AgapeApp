@@ -14,7 +14,7 @@ async function moveIfTemplate(html) {
 
   const data = await fs.readFile(filename, "utf8");
 
-  if (data.includes('xmlns:th="http://www.thymeleaf.org"')) {
+  if (!data.includes('xmlns:th="http://www.thymeleaf.org"')) {
     return;
   }
 

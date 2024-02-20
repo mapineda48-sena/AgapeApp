@@ -39,3 +39,4 @@ out/
 **/node_modules/
 src/webpack/dist
 src/main/resources/static/*
+src/main/resources/template/*

@@ -5,7 +5,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const outDir = path.resolve("../main/resources/static");
-const templateDir = path.resolve("../main/resources/template");
 
 const pages = glob
   .sync("**/*.html", { cwd: path.resolve("pages") })
@@ -81,18 +80,7 @@ module.exports = {
     splitChunks: {
       chunks: "all",
       cacheGroups: {
-        bootstrap: {
-          name: "bootstrap",
-          filename: "js/[name].js",
-          test: /[\\/]node_modules[\\/]bootstrap[\\/]/,
-          priority: 10, // La prioridad es importante para asegurar que se maneje correctamente
-        },
-        popper: {
-          name: "popper",
-          filename: "js/[name].js",
-          test: /[\\/]node_modules[\\/]@popperjs[\\/]core[\\/]/,
-          priority: 10,
-        },
+        ...getSplitChunksGroupNodeModules(),
         commons: {
           name: "commons",
           filename: "js/[name].js",
@@ -103,17 +91,6 @@ module.exports = {
     },
   },
 
-  // optimization: {
-  //   splitChunks: {
-  //     cacheGroups: {
-  //       vendor: {
-  //         test: /[\\/]node_modules[\\/]/, // Esta regex captura todos los módulos dentro de node_modules
-  //         name: "[name].vendors", // El nombre del chunk común
-  //         chunks: "all", // Tipo de chunks a optimizar
-  //       },
-  //     },
-  //   },
-  // },
   // Configuraciones adicionales...
 };
 
@@ -132,4 +109,31 @@ function getPageChunks(html) {
   }
 
   return chunks;
+}
+
+function getSplitChunksGroupNodeModules() {
+  const dependencies = Object.keys(require("./package.json").dependencies);
+
+  return Object.fromEntries(
+    dependencies.map((package) => [
+      package,
+      {
+        name: package,
+        filename: "js/[name].js",
+        priority: 10,
+        test: createPackageRegExp(package),
+      },
+    ])
+  );
+}
+
+function createPackageRegExp(packageName) {
+  // Escapar caracteres especiales para RegEx
+  const escapedName = packageName.replace(/[-\/\\^$*+?.()|[\]{}]/g, "[\\\\/]");
+
+  // Construir la cadena de la expresión regular
+  const pattern = `[\\\\/]node_modules[\\\\/]${escapedName}[\\\\/]`;
+
+  // Crear y retornar el objeto RegExp
+  return new RegExp(pattern);
 }

@@ -23,13 +23,13 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "webpack": "^5.90.3",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "fs-extra": "^11.2.0",
+    "glob": "^10.3.10"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "axios": "^1.6.7",
-    "bootstrap": "^5.3.2",
-    "fs-extra": "^11.2.0",
-    "glob": "^10.3.10"
+    "bootstrap": "^5.3.2"
   }
 }
